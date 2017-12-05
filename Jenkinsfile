@@ -1,9 +1,7 @@
 pipeline {
    agent any
-   def mvnHome
    tools { 
-        maven 'Maven 3.3.9' 
-        jdk 'jdk8' 
+        maven "M3"
     }
     stages {
        stage ('Initialize') {
@@ -16,11 +14,7 @@ pipeline {
         }
       stage('Build') {
          // Run the maven build
-         if (isUnix()) {
-            sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
-         } else {
-            bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
-         }
+         sh "mvn -Dmaven.test.failure.ignore clean package"
       }
    }
    post {
