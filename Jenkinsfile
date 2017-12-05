@@ -16,7 +16,10 @@ node {
       }
    }
    stage('Results') {
-      junit '**/target/surefire-reports/TEST-*.xml'
-      archive 'target/*.jar'
+      post {
+         always {
+            junit '**/target/surefire-reports/TEST-*.xml'
+         }
+      }
    }
 }
