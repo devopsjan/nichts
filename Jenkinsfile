@@ -1,14 +1,19 @@
 pipeline {
    agent any
    def mvnHome
-   stages {
-      stage('Preparation') {
-         checkout scm
-         // Get the Maven tool.
-         // ** NOTE: This 'M3' Maven tool must be configured
-         // **       in the global configuration.           
-         mvnHome = tool 'M3'
-      }
+   tools { 
+        maven 'Maven 3.3.9' 
+        jdk 'jdk8' 
+    }
+    stages {
+       stage ('Initialize') {
+           steps {
+               sh '''
+                  echo "PATH = ${PATH}"
+                  echo "M2_HOME = ${M2_HOME}"
+                ''' 
+            }
+        }
       stage('Build') {
          // Run the maven build
          if (isUnix()) {
