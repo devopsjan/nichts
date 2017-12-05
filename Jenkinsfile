@@ -15,11 +15,9 @@ node {
          bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
       }
    }
-   stage('Results') {
-      post {
-         always {
-            junit '**/target/surefire-reports/TEST-*.xml'
-         }
+   post {
+      always {
+        junit '**/target/surefire-reports/TEST-*.xml'
       }
    }
 }
